@@ -1,0 +1,40 @@
+prisma:cli:bin Failed to initialize the command state: Error: ENOENT: no such file or directory, open 'C:\Users\Hareesh\AppData\Roaming\prisma-nodejs\Config\commands.json' +5763ms
+prisma:config:defineConfig [default]: '{\n  "loadedFromFile": null,\n  "deprecatedPackageJson": null\n}' +5553ms
+prisma:config:defineConfig [config.schema]: 'prisma/schema.prisma' +1ms
+prisma:config:defineConfig [config.engine]: 'classic' +0ms
+prisma:config:defineConfig [config.datasource]: '{\n' +
+  '  "url": "postgresql://postgres.gpgntxvqdrcuqgihogsd:GurunG13579qwert@aws-1-ap-south-1.pooler.supabase.com:6543/postgres"\n' +
+  '}' +0ms
+prisma:config:defineConfig [config.migrations]: '{\n  "path": "prisma/migrations"\n}' +1ms
+prisma:config:loadConfigFromFile Config file loaded in 887.58ms +1ms
+prisma:config:PrismaConfig Parsing PrismaConfigInternal: '{\n' +
+  '  "loadedFromFile": null,\n' +
+  '  "deprecatedPackageJson": null,\n' +
+  '  "schema": "prisma/schema.prisma",\n' +
+  '  "engine": "classic",\n' +
+  '  "datasource": {\n' +
+  '    "url": "postgresql://postgres.gpgntxvqdrcuqgihogsd:GurunG13579qwert@aws-1-ap-south-1.pooler.supabase.com:6543/postgres"\n' +
+  '  },\n' +
+  '  "migrations": {\n' +
+  '    "path": "prisma/migrations"\n' +
+  '  }\n' +
+  '}' +8ms
+prisma:config:PrismaConfig Short-circuit: input is already a PrismaConfigInternal object +0ms
+Loaded Prisma config from prisma.config.ts.
+
+prisma:getSchema Reading schema from single file D:\Documents\webite\sentineltms\prisma\schema.prisma +903ms
+prisma:getConfig Using getConfig Wasm +6ms
+prisma:getConfig config data retrieved without errors in getConfig Wasm +43ms
+prisma:engines binaries to download schema-engine, libquery-engine +6616ms
+prisma:getSchema Reading schema from single file D:\Documents\webite\sentineltms\prisma\schema.prisma +14ms
+prisma:getSchema Reading schema from single file D:\Documents\webite\sentineltms\prisma\schema.prisma +1ms
+prisma:getConfig Using getConfig Wasm +480ms
+prisma:getConfig config data retrieved without errors in getConfig Wasm +3ms
+prisma:cli:checkpoint runCheckpointClientCheck(): Execution time for getting info: 492.54389999999876 ms +0ms
+prisma:cli:checkpoint runCheckpointClientCheck(): Execution time for "await checkpoint.check(data)": 78.02909999999974 ms +80ms
+Prisma config detected, skipping environment variable loading.
+prisma:getSchema Reading schema from single file D:\Documents\webite\sentineltms\prisma\schema.prisma +1109ms
+Prisma schema loaded from prisma\schema.prisma
+prisma:getConfig Using getConfig Wasm +1ms
+prisma:getConfig config data retrieved without errors in getConfig Wasm +3ms
+Datasource "db": PostgreSQL database "postgres", schema "public" at "aws-1-ap-south-1.pooler.supabase.com:6543"
