@@ -82,6 +82,12 @@ const AuthForm = ({ type }: { type: string }) => {
                       placeholder="Eg. Doe"
                     />
                   </div>
+                  <CustomInput
+                    control={form.control}
+                    name="phone"
+                    label="Phone Number"
+                    placeholder="+91 996 750 7211"
+                  />
 
                   <div className="flex  gap-4">
                     <CustomInput

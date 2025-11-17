@@ -14,11 +14,11 @@ const Sidebar = ({ role }: { role: string }) => {
         <Link href="/" className="flex mb-12 cursor-pointer items-center gap-2">
           <Image
             src="/icons/sentinel-logo.png"
-            height={40}
-            width={40}
+            height={36}
+            width={36}
             alt="tms logo"
           />
-          <h1 className="sidebar-logo">SentinelTMS</h1>
+          <h1 className="sidebar-logo">SenTMS</h1>
         </Link>
         {SidebarLinks.map((item) => {
           const isActive =
@@ -59,6 +59,17 @@ const Sidebar = ({ role }: { role: string }) => {
           );
         })}
       </nav>
+      <footer>
+        <Link href="/" className="flex cursor-pointer items-center gap-2">
+          <Image
+            src="/icons/circle-user-round.svg"
+            height={36}
+            width={36}
+            alt="tms logo"
+          />
+          <h1 className="footer-user">{role}</h1>
+        </Link>
+      </footer>
     </section>
   );
 };
