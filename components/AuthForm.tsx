@@ -14,6 +14,7 @@ import CustomInput from "./CustomInput";
 
 import { authFormSchema } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
+import { createUser } from "@/actions/actions";
 
 const AuthForm = ({ type }: { type: string }) => {
   const [user, setuser] = useState(null);
@@ -25,19 +26,24 @@ const AuthForm = ({ type }: { type: string }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      firstName: "",
+      lastName: "",
+      phone: "",
+      dob: "",
+      city: "",
       email: "",
       password: "",
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    setIsloading(true);
-    console.log(values);
-    setIsloading(false);
-  }
+  // // 2. Define a submit handler.
+  // function onSubmit(values: z.infer<typeof formSchema>) {
+  //   // Do something with the form values.
+  //   // ✅ This will be type-safe and validated.
+  //   setIsloading(true);
+  //   console.log(values);
+  //   setIsloading(false);
+  // }
 
   return (
     <section className="flex min-h-screen w-full max-w-[420px] flex-col justify-center gap-5 py-10 md:gap-8">
@@ -64,7 +70,12 @@ const AuthForm = ({ type }: { type: string }) => {
       ) : (
         <>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form
+              // onSubmit={form.handleSubmit(onSubmit)}
+              action={createUser}
+              className="space-y-8"
+              method="POST"
+            >
               {type === "sign-up" && (
                 <>
                   <div className="flex  gap-4">
