@@ -46,14 +46,8 @@ const AuthForm = ({ type }: { type: string }) => {
   // }
 
   return (
-    <section className="flex min-h-screen w-full max-w-[420px] flex-col justify-center gap-5 py-10 md:gap-8">
+    <section className="flex min-h-screen w-full max-w-[420px] flex-col justify-center gap-1 py-5 md:gap-8 rounded-md">
       <header className="flex flex-col gap-5 md:gap-8">
-        <Link href="/" className="cursor-pointer flex items-center gap-1 px-4">
-          <h1 className="text-[26px] leading-[32px] font-bold text-black-1">
-            SentinelTMS
-          </h1>
-        </Link>
-
         <div className="flex flex-col gap-1 md:gap-3">
           <h1 className="text-[24px] leading-[30px] lg:text-[36px] leading-[44px] font-semibold text-gray-900">
             {type === "sign-in" ? "Sign In" : "Sign Up"}

@@ -1,7 +1,21 @@
+import {
+  House,
+  ClipboardList,
+  Users,
+  History,
+  Banknote,
+  OctagonAlert,
+  FileChartColumn,
+  Settings,
+  MessageCircleQuestionMark,
+  MessageSquareShare,
+} from "lucide-react";
+import { ForwardRefExoticComponent } from "react";
+
 export type SidebarRole = string | string[];
 
 export type SidebarLink = {
-  imgUrl: string;
+  imgUrl: ForwardRefExoticComponent<any> | string;
   route: string;
   label: string;
   role: SidebarRole;
@@ -9,48 +23,67 @@ export type SidebarLink = {
 
 export const SidebarLinks: SidebarLink[] = [
   {
-    imgUrl: "/icons/house.svg",
+    imgUrl: House,
     route: "/",
     label: "Dashboard",
     role: ["admin", "analyst", "compliance"],
   },
   {
-    imgUrl: "/icons/clipboard-list.svg",
+    imgUrl: ClipboardList,
     route: "/rules",
     label: "Rules",
     role: "admin",
   },
   {
-    imgUrl: "/icons/users.svg",
+    imgUrl: Users,
     route: "/users",
     label: "Users",
     role: "admin",
   },
   {
-    imgUrl: "/icons/history.svg",
+    imgUrl: History,
     route: "/audit",
     label: "Audit Trail",
     role: "admin",
   },
   {
-    imgUrl: "/icons/banknote.svg",
+    imgUrl: Banknote,
     route: "/transactions",
     label: "Transactions",
     role: ["analyst", "compliance"],
   },
   {
-    imgUrl: "/icons/octagon-alert.svg",
+    imgUrl: OctagonAlert,
     route: "/alerts",
     label: "Alerts",
     role: ["analyst", "compliance"],
   },
   {
-    imgUrl: "/icons/file-chart-column.svg",
+    imgUrl: FileChartColumn,
     route: "/sar",
     label: "Activity Reports",
     role: ["analyst", "compliance"],
   },
 ];
 
+export const SidebarFooterLinks = [
+  {
+    imgUrl: Settings,
+    route: "/settings",
+    label: "Settings",
+  },
+
+  {
+    imgUrl: MessageCircleQuestionMark,
+    route: "/help",
+    label: "Get Help",
+  },
+
+  {
+    imgUrl: MessageSquareShare,
+    route: "/feedback",
+    label: "Feedback",
+  },
+];
 // make everything in role array and then item.role.includes(role)
 // make dashboard default for all users
