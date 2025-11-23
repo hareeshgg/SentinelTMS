@@ -16,6 +16,12 @@ export async function createUser(formData: FormData) {
   });
 }
 
+export async function getTransactions() {
+  const transactions = await prisma.transaction.findMany();
+
+  return transactions;
+}
+
 // "use server";
 
 // import prisma from "@/lib/db";

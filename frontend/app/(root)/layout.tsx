@@ -18,14 +18,30 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/Sidebar/AppSidebar";
 
+import { ThemeProvider } from "@/components/Theme-Provider";
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <SidebarProvider>
-      <AppSidebar role={"analyst"} />
-      <main className="flex h-screen w-full">
-        <SidebarTrigger />
-        {children}
-      </main>
-    </SidebarProvider>
+    <>
+      <html lang="en" suppressHydrationWarning>
+        <head />
+        <body>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SidebarProvider>
+              <AppSidebar role={"analyst"} />
+              <main className="flex h-screen w-full">
+                <SidebarTrigger />
+                {children}
+              </main>
+            </SidebarProvider>
+          </ThemeProvider>
+        </body>
+      </html>
+    </>
   );
 }

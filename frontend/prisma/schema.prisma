@@ -5,13 +5,45 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  ANALYST
+  OFFICER
+  GUEST
+}
+
+enum AccType {
+  SAVINGS
+  CURRENT
+  SALARY
+}
+
+enum AccStatus {
+  ACTIVE
+  DORMANT
+  FROZEN
+  CLOSED
+}
+
+enum TxType {
+  CREDIT
+  DEBIT
+  TRANSFER
+  UPI
+}
+
+enum Status {
+  PENDING
+  COMPLETED
+  FAILED
 }
 
 model User {
@@ -23,6 +55,93 @@ model User {
   dob        String
   email      String   @unique
   password   String
+  role       Role     @default(GUEST)
   createdAt  DateTime @default(now())
   uppdatedAt DateTime @updatedAt
+}
+
+model Branch {
+  id       String    @id @default(uuid())
+  code     String
+  name     String
+  city     String
+  // relations
+  accounts Account[]
+}
+
+model Account {
+  id          String    @id @default(uuid())
+  account_no  String    @unique
+  type        AccType
+  status      AccStatus @default(ACTIVE)
+  openingDate DateTime?
+  closingDate DateTime?
+
+  // relations
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId String
+  branch     Branch   @relation(fields: [branchId], references: [id])
+  branchId   String
+
+  benefactorTransactions  Transaction[] @relation("benefactorAccount")
+  beneficiaryTransactions Transaction[] @relation("beneficiaryAccount")
+}
+
+model Customer {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  phone     String?  @unique
+  createdAt DateTime @default(now())
+
+  // relations
+  accounts Account[]
+}
+
+// model Transaction {
+//   id          String   @id @default(uuid())
+//   date        DateTime @default(now())
+//   benefactor  String
+//   beneficiary String
+//   status      Status
+//   type        TxType
+//   risk_score  Int
+//   amount      Float
+//   currency    String?  @default("INR")
+//   description String?
+//   reference   String?  @unique
+
+//   benefactorCustomer  Customer @relation("benefactor", fields: [benefactor], references: [id])
+//   beneficiaryCustomer Customer @relation("beneficiary", fields: [beneficiary], references: [id])
+
+//   @@index([benefactor])
+//   @@index([beneficiary])
+// }
+
+model Transaction {
+  id   String   @id @default(uuid())
+  date DateTime @default(now())
+
+  // Prefer referencing accounts. If external counterparty, beneficiaryAccountId or benefactorAccountId can be null
+  benefactorAccountId  String? // internal account id (nullable for external)
+  beneficiaryAccountId String? // internal account id (nullable for external)
+
+  // For external transfers (other banks), store the external account number here.
+  benefactor_account_no  String? // optional string for external sender account number
+  beneficiary_account_no String? // optional string for external receiver account number
+
+  status      Status
+  type        TxType
+  risk_score  Int
+  amount      Float
+  currency    String? @default("INR")
+  description String?
+  reference   String? @unique
+
+  // relations to internal accounts (if present)
+  benefactorAccount  Account? @relation("benefactorAccount", fields: [benefactorAccountId], references: [id])
+  beneficiaryAccount Account? @relation("beneficiaryAccount", fields: [beneficiaryAccountId], references: [id])
+
+  @@index([benefactorAccountId])
+  @@index([beneficiaryAccountId])
 }

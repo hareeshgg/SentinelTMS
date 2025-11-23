@@ -31,6 +31,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { NavUser } from "./NavUser";
+import { SwitchMode } from "../SwitchMode";
 
 const AppSidebar = ({ role }: { role: string }) => {
   const data = {
@@ -69,7 +70,7 @@ const AppSidebar = ({ role }: { role: string }) => {
                 alt="tms logo"
               />
               {state != "collapsed" && (
-                <span className="sidebar-logo">SenTMS</span>
+                <span className="sidebar-logo dark:text-white">SenTMS</span>
               )}
             </Link>
           </SidebarMenuItem>
@@ -113,6 +114,7 @@ const AppSidebar = ({ role }: { role: string }) => {
 
       <SidebarFooter>
         <SidebarMenu>
+          <SwitchMode />
           {SidebarFooterLinks.map((item) => (
             <SidebarMenuItem key={item.label}>
               <SidebarMenuButton asChild>

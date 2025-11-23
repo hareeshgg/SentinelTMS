@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///D:/Documents/webite/sentineltms/frontend/app/%28root%29/sar/page.tsx"],"sourcesContent":["import React from \"react\";\r\n\r\nconst SAR = () => {\r\n  return <div>SAR</div>;\r\n};\r\n\r\nexport default SAR;\r\n"],"names":[],"mappings":";;;;;;AAEA,MAAM,MAAM;IACV,qBAAO,yQAAC;kBAAI;;;;;;AACd;uCAEe","debugId":null}}]
+}

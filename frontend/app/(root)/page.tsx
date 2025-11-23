@@ -15,9 +15,8 @@ const Home = () => {
             user={loggedIn.user || "Analyst"}
             subtext="Access & manage your accounts efficiently"
           />
-
-          <Chart />
         </header>
+        <Chart />
       </div>
     </section>
   );
