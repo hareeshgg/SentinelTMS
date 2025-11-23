@@ -1,6 +1,0 @@
-{
-  "/(root)/alerts/page": "app/(root)/alerts/page.js",
-  "/(root)/page": "app/(root)/page.js",
-  "/(root)/sar/page": "app/(root)/sar/page.js",
-  "/(root)/transactions/page": "app/(root)/transactions/page.js"
-}
