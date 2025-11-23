@@ -42,10 +42,16 @@ next-env.d.ts
 
 /lib/generated/prisma
 
-/lib/generated/prisma
+/backend/.venv/
+/frontend/node_modules/
+/frontend/.next/
+/backend/node_modules/
+.env
+npm-debug.log
+yarn-error.log
+dist/
 
-/lib/generated/prisma
+/backend/.venv/
+node_modules/
+.next/
 
-/app/generated/prisma
-
-/lib/generated/prisma
