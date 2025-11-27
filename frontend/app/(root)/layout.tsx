@@ -33,7 +33,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             disableTransitionOnChange
           >
             <SidebarProvider>
-              <AppSidebar role={"analyst"} />
+              <AppSidebar role={"admin"} />
               <main className="flex h-screen w-full">
                 <SidebarTrigger />
                 {children}

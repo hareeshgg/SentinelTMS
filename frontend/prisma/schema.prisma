@@ -51,8 +51,8 @@ model User {
   firstName  String
   lastName   String
   city       String?
-  phone      String   @unique
-  dob        String
+  phone      String?  @unique
+  dob        String?
   email      String   @unique
   password   String
   role       Role     @default(GUEST)

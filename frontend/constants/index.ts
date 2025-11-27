@@ -43,7 +43,7 @@ export const SidebarLinks: SidebarLink[] = [
   {
     imgUrl: History,
     route: "/audit",
-    label: "Audit Trail",
+    label: "Logs",
     role: "admin",
   },
   {

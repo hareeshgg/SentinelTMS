@@ -17,9 +17,10 @@ export const authFormSchema = (type: string) =>
     dob: type === "sign-in" ? z.string().optional() : z.string(),
     email: z.string().email("Please enter a valid email address."),
     password: z.string().min(8),
+    role: type === "sign-in" ? z.string().optional() : z.string(),
   });
 
-export const transactionSchema = () => {
+export const transactionSchema = (type: string) =>
   z.object({
     id: z.string(),
     date: z.date(),
@@ -33,4 +34,13 @@ export const transactionSchema = () => {
     description: z.string().length(20).optional(),
     reference: z.string().optional(),
   });
-};
+
+export const userSchema = () =>
+  z.object({
+    id: z.string(),
+    firstName: z.string(),
+    lastName: z.string(),
+    role: z.string(),
+    status: z.string(),
+    email: z.email(),
+  });

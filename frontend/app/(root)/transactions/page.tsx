@@ -19,7 +19,7 @@ export default async function DemoPage() {
           />
         </header>
 
-        <DataTableDemo columns={columns} data={data} />
+        <DataTableDemo columns={columns} data={data} component="transaction" />
       </div>
     </section>
   );

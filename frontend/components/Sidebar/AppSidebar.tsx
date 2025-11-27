@@ -34,6 +34,7 @@ import { NavUser } from "./NavUser";
 import { SwitchMode } from "../SwitchMode";
 
 const AppSidebar = ({ role }: { role: string }) => {
+  //logged-in user
   const data = {
     user: {
       name: "Hareesh",

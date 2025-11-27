@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,11 +12,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Checkbox } from "@radix-ui/react-checkbox";
-import { transactionSchema } from "@/lib/utils";
+import { Checkbox } from "@/components/ui/checkbox"; // Use your styled component, not Radix directly
+import { transactionSchema, userSchema } from "@/lib/utils";
 import z from "zod";
 
-type Transaction = z.infer<typeof transactionSchema>;
+type Transaction = z.infer<ReturnType<typeof transactionSchema>>;
+type User = z.infer<ReturnType<typeof userSchema>>;
 
 export const columns: ColumnDef<Transaction>[] = [
   {
@@ -38,8 +39,8 @@ export const columns: ColumnDef<Transaction>[] = [
         aria-label="Select row"
       />
     ),
-    // enableSorting: false,
-    // enableHiding: false,
+    enableSorting: false,
+    enableHiding: false,
   },
   {
     accessorKey: "id",
@@ -76,21 +77,7 @@ export const columns: ColumnDef<Transaction>[] = [
       <div className="capitalize">{row.getValue("risk_score")}</div>
     ),
   },
-  // {
-  //   accessorKey: "email",
-  //   header: ({ column }) => {
-  //     return (
-  //       <Button
-  //         variant="ghost"
-  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-  //       >
-  //         Email
-  //         <ArrowUpDown />
-  //       </Button>
-  //     );
-  //   },
-  //   cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  // },
+
   {
     accessorKey: "amount",
     header: () => <div className="text-right">Amount</div>,
@@ -132,5 +119,81 @@ export const columns: ColumnDef<Transaction>[] = [
         </DropdownMenu>
       );
     },
+  },
+];
+
+export const userColumn: ColumnDef<User>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: "id",
+    header: "User ID",
+    cell: ({ row }) => <div className="capitalize">{row.getValue("id")}</div>,
+  },
+  {
+    id: "fullName",
+    header: "Name",
+    cell: ({ row }) => {
+      const user = row.original as User;
+      return (
+        <div className="capitalize">{`${user.firstName} ${user.lastName}`}</div>
+      );
+    },
+  },
+  {
+    accessorKey: "email",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Email
+          <ArrowUpDown />
+        </Button>
+      );
+    },
+    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+  },
+  {
+    accessorKey: "role",
+    header: "Role",
+    cell: ({ row }) => <div className="capitalize">{row.getValue("role")}</div>,
+  },
+  {
+    id: "action",
+    header: ({ column }) => {
+      return <div className="text-center">Actions</div>;
+    },
+    cell: ({ row }) => (
+      <div className="flex gap-3 justify-center items-center">
+        <span className="cursor-pointer hover:bg-gray-300 rounded-xl">
+          <Pencil size={20} />
+        </span>
+        <span className="cursor-pointer hover:bg-gray-300 rounded-xl">
+          <Trash2 size={20} />
+        </span>
+      </div>
+    ),
   },
 ];
