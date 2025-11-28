@@ -14,7 +14,7 @@ import CustomInput from "./CustomInput";
 
 import { authFormSchema } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
-import { createUser } from "@/actions/actions";
+import { createUser, getUser, updateUser } from "@/actions/actions";
 import {
   Select,
   SelectContent,
@@ -25,8 +25,16 @@ import {
 import { Field, FieldLabel } from "./ui/field";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { DialogFooter } from "./ui/dialog";
+import { userProps } from "@/constants";
 
-const AuthForm = ({ type, work }: { type: string; work: string }) => {
+interface authFormProps {
+  type: string;
+  work: string;
+  data?: userProps;
+}
+
+const AuthForm = ({ type, work, data }: authFormProps) => {
+  const isEdit = work === "manage" && Boolean(data);
   const [user, setuser] = useState(null);
 
   const [isLoading, setIsloading] = useState(false);
@@ -36,14 +44,14 @@ const AuthForm = ({ type, work }: { type: string; work: string }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      phone: "",
-      dob: "",
-      city: "",
-      email: "",
-      password: "",
-      role: "",
+      firstName: data?.firstName ?? "",
+      lastName: data?.lastName ?? "",
+      phone: data?.phone ?? "",
+      dob: data?.dob ?? "",
+      city: data?.city ?? "",
+      email: data?.email ?? "",
+      password: "", // usually don’t prefill
+      role: data?.role ?? "",
     },
   });
 
@@ -84,7 +92,7 @@ const AuthForm = ({ type, work }: { type: string; work: string }) => {
           <Form {...form}>
             <form
               // onSubmit={form.handleSubmit(onSubmit)}
-              action={createUser}
+              action={isEdit ? updateUser : createUser}
               className="space-y-8"
             >
               {type === "sign-up" && (
@@ -139,16 +147,19 @@ const AuthForm = ({ type, work }: { type: string; work: string }) => {
                 placeholder="Enter your email"
               />
 
-              <CustomInput
-                control={form.control}
-                name="password"
-                label="Password"
-                placeholder="Enter your password"
-              />
+              {isEdit || (
+                <CustomInput
+                  control={form.control}
+                  name="password"
+                  label="Password"
+                  placeholder="Enter your password"
+                />
+              )}
               {work === "manage" && (
                 <Field>
                   <FieldLabel htmlFor="user_role">Role</FieldLabel>
                   <Select
+                    defaultValue={data?.role ?? ""}
                     onValueChange={(value) => form.setValue("role", value)}
                   >
                     <SelectTrigger id="user_role">

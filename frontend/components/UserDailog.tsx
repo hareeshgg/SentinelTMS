@@ -8,28 +8,54 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { Plus } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 import AuthForm from "./AuthForm";
+import { getUser } from "@/actions/actions";
+import { userProps } from "@/constants";
 
-export function UserDailog() {
+interface UserDailogProps {
+  use: string;
+  user?: userProps;
+}
+
+export function UserDailog({ use, user }: UserDailogProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="cursor-pointer rounded-lg ">
-          <span>
-            <Plus />
+        {use === "add" ? (
+          <Button variant="outline" className="cursor-pointer rounded-lg ">
+            <span>
+              <Plus />
+            </span>
+            Add New User
+          </Button>
+        ) : (
+          <span className="cursor-pointer hover:bg-gray-300 rounded-xl">
+            <Button>
+              <Pencil size={20} />
+            </Button>
           </span>
-          Add New User
-        </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add New User</DialogTitle>
-          <DialogDescription>Create a new user account.</DialogDescription>
+          {use === "add" ? (
+            <>
+              <DialogTitle>Add New User</DialogTitle>
+              <DialogDescription>Create a new user account.</DialogDescription>
+            </>
+          ) : (
+            <>
+              <DialogTitle>Update User</DialogTitle>
+              <DialogDescription>
+                Update user account with latest details.
+              </DialogDescription>
+            </>
+          )}
         </DialogHeader>
         {/* Add Form validation & Toast for error */}
 
-        <AuthForm type="sign-up" work="manage" />
+        <AuthForm type="sign-up" work="manage" data={user} />
       </DialogContent>
     </Dialog>
   );

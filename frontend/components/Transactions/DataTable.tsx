@@ -112,7 +112,7 @@ export default function DataTableDemo<TData, TValue>({
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
-          <UserDailog />
+          <UserDailog use="add" id={0} />
         )}
       </div>
       <div className="overflow-hidden rounded-md border">

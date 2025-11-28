@@ -15,6 +15,8 @@ import {
 import { Checkbox } from "@/components/ui/checkbox"; // Use your styled component, not Radix directly
 import { transactionSchema, userSchema } from "@/lib/utils";
 import z from "zod";
+import { delUser } from "@/actions/actions";
+import { UserDailog } from "../UserDailog";
 
 type Transaction = z.infer<ReturnType<typeof transactionSchema>>;
 type User = z.infer<ReturnType<typeof userSchema>>;
@@ -185,15 +187,26 @@ export const userColumn: ColumnDef<User>[] = [
     header: ({ column }) => {
       return <div className="text-center">Actions</div>;
     },
-    cell: ({ row }) => (
-      <div className="flex gap-3 justify-center items-center">
-        <span className="cursor-pointer hover:bg-gray-300 rounded-xl">
-          <Pencil size={20} />
-        </span>
-        <span className="cursor-pointer hover:bg-gray-300 rounded-xl">
-          <Trash2 size={20} />
-        </span>
-      </div>
-    ),
+    cell: ({ row }) => {
+      const user = row.original as User;
+
+      return (
+        <div className="flex gap-1 justify-center items-center">
+          <UserDailog use="update" user={user} />
+          <span
+            className="cursor-pointer hover:bg-gray-300 rounded-xl"
+            onClick={async () => {
+              console.log(row.getValue("id"));
+              await delUser(row.getValue("id"));
+              console.log("User deleted");
+            }}
+          >
+            <Button>
+              <Trash2 size={20} />
+            </Button>
+          </span>
+        </div>
+      );
+    },
   },
 ];

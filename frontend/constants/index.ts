@@ -1,3 +1,4 @@
+import { Role } from "@/lib/generated/prisma/enums";
 import {
   House,
   ClipboardList,
@@ -87,3 +88,17 @@ export const SidebarFooterLinks = [
 ];
 // make everything in role array and then item.role.includes(role)
 // make dashboard default for all users
+
+export type userProps = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  city: string;
+  phone: string;
+  dob: string;
+  email: string;
+  password: string;
+  role: Role;
+  createdAt: Date;
+  uppdatedAt: Date;
+};
