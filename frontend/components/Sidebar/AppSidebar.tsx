@@ -1,7 +1,5 @@
 "use client";
 
-import { Home, Inbox, Calendar, Search, Settings } from "lucide-react";
-
 import {
   Sidebar,
   SidebarContent,
@@ -16,15 +14,6 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
-import { ChevronUp, User2 } from "lucide-react";
-
 import { SidebarFooterLinks, SidebarLinks } from "@/constants";
 
 import { usePathname } from "next/navigation";
@@ -33,15 +22,16 @@ import Image from "next/image";
 import { NavUser } from "./NavUser";
 import { SwitchMode } from "../SwitchMode";
 
-const AppSidebar = ({ role }: { role: string }) => {
-  //logged-in user
-  const data = {
-    user: {
-      name: "Hareesh",
-      email: "hareesh@gmail.com",
-      role: "admin",
-    },
+type SidebarProps = {
+  user: {
+    name: string;
+    email: string;
+    role: string;
   };
+};
+
+const AppSidebar = ({ user }: SidebarProps) => {
+  const role = user?.role.toLowerCase();
 
   const {
     state,
@@ -130,7 +120,7 @@ const AppSidebar = ({ role }: { role: string }) => {
       </SidebarFooter>
 
       <SidebarFooter>
-        <NavUser user={data.user}></NavUser>
+        <NavUser user={user}></NavUser>
       </SidebarFooter>
     </Sidebar>
   );

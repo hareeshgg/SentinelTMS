@@ -6,6 +6,7 @@ import DataTableDemo from "@/components/Transactions/DataTable";
 
 export default async function DemoPage() {
   const data = await prisma.transaction.findMany();
+  // console.log(data);
 
   return (
     <section className="home">

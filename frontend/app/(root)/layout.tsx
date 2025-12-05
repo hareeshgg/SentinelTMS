@@ -1,26 +1,24 @@
-// import Sidebar from "@/components/Sidebar";
-
-// export default function RootLayout({
-//   children,
-// }: Readonly<{
-//   children: React.ReactNode;
-// }>) {
-//   const loggedIn = "admin"; //would be types dynamically based on user session
-
-//   return (
-//     <main className="flex h-screen w-full">
-//       <Sidebar role={loggedIn} />
-//       {children}
-//     </main>
-//   );
-// }
-
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/Sidebar/AppSidebar";
 
 import { ThemeProvider } from "@/components/Theme-Provider";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const session = await auth();
+  if (!session) redirect("/sign-in");
+
+  const user = session?.user as
+    | { name?: string | null; email?: string | null; role?: string | null }
+    | undefined;
+
+  const role = (user?.role ?? "GUEST").toUpperCase();
+
   return (
     <>
       <html lang="en" suppressHydrationWarning>
@@ -33,7 +31,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             disableTransitionOnChange
           >
             <SidebarProvider>
-              <AppSidebar role={"admin"} />
+              <AppSidebar
+                user={{
+                  name: user?.name ?? "Guest",
+                  email: user?.email ?? "",
+                  role,
+                }}
+              />
               <main className="flex h-screen w-full">
                 <SidebarTrigger />
                 {children}

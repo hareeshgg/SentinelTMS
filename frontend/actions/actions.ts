@@ -86,7 +86,10 @@ export async function getUser(id: number) {
 }
 
 export async function getTransactions() {
-  const transactions = await prisma.transaction.findMany();
-
-  return transactions;
+  try {
+    const transactions = await prisma.transaction.findMany();
+    return transactions;
+  } catch (error) {
+    console.error("Get transaction error: ", error);
+  }
 }

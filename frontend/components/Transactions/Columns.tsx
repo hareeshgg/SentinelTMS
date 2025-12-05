@@ -58,7 +58,22 @@ export const columns: ColumnDef<Transaction>[] = [
       return <div className="capitalize">{dateStr}</div>;
     },
   },
-
+  {
+    header: "Benefactor",
+    cell: ({ row }) => {
+      const tx = row.original as Transaction;
+      const value = tx.benefactorAccountId ?? tx.benefactor_account_no ?? "—";
+      return <span>{value}</span>;
+    },
+  },
+  {
+    header: "Benficiary",
+    cell: ({ row }) => {
+      const tx = row.original as Transaction;
+      const value = tx.beneficiaryAccountId ?? tx.beneficiary_account_no ?? "—";
+      return <span>{value}</span>;
+    },
+  },
   {
     accessorKey: "status",
     header: "Status",

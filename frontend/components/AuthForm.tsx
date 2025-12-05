@@ -82,6 +82,7 @@ const AuthForm = ({ mode, data }: authFormProps) => {
           body: JSON.stringify(values),
         });
         if (!res.ok) throw new Error("Login failed");
+
         // maybe redirect
         router.push("/");
       } else if (mode === "sign-up") {
